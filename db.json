@@ -29,6 +29,13 @@
       "name": "Bé beo",
       "phone": "123",
       "id": "c8r2dyRX3"
+    },
+    {
+      "name": "David Tuan",
+      "phone": "0333111222",
+      "id": "YItRKl3RV",
+      "email": "thanhtuan@gmail.com",
+      "password": "123456"
     }
   ]
 }

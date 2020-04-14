@@ -1,0 +1,22 @@
+extends ../layout/common 
+
+block content    
+    h1 
+        span Users
+        a.btn.btn-primary.ml-2(href='/users/create') Create user
+    .d-flex.align-items-center
+        form.form-inline.ml-auto(action='/users/search', method='GET')
+            input.form-control(type='text', name='q')
+            button.btn.btn-secondary.ml-2 Search
+
+    table.table
+        tr
+            th Name
+            th Phone
+            th Actions
+        each user in users
+            tr
+                td= user.name
+                td= user.phone
+                td
+                    a(href="/users/" + user.id) View info

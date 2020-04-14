@@ -1,0 +1,59 @@
+//create automatic id
+var shortid = require('shortid');
+var db = require('../db');
+
+module.exports.index = function (req, res) {
+    res.render('users/index', {
+        users: db.get('users').value()
+    });
+};
+
+//Search user function
+module.exports.search = function(req, res){
+    var q = req.query.q;
+    var matchedUsers = db.get('users').filter(function(user){
+        return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+    }).value();
+
+    res.render('users/index',{
+        users: matchedUsers
+    });
+};
+
+//Create user function
+module.exports.create = function(req,res){
+    res.render('users/create');
+};
+
+module.exports.postCreate = function(req, res){
+    req.body.id = shortid.generate();
+    
+    var errors = [];
+    if(!req.body.name) {
+        errors.push('Name is required');
+    }
+    if(!req.body.phone) {
+        errors.push('Phone is required');
+    }
+    if(errors.length) {
+        res.render('users/create', {
+            errors: errors,
+            values: req.body
+        });
+        return;
+    }
+
+    db.get('users').push(req.body).write();
+    res.redirect('/users');
+};
+
+//View info user function
+module.exports.viewInfo = function (req, res) {
+    var id = req.params.id;
+
+    var user = db.get('users').find({ id: id}).value();
+
+    res.render('users/view',{
+        user: user
+    })
+}

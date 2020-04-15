@@ -1,8 +1,12 @@
+require('dotenv').config()
+console.log(process.env.SECTION_SECRET)
 var express = require('express');
 var cookieParser = require('cookie-parser')
 
 var userRoute = require('./routes/user.route');
 var authRoute = require('./routes/auth.route');
+
+var middleWare = require('./middleware/auth.middleware');
 
 var port = 3001;
 
@@ -12,7 +16,7 @@ app.set('views', './views');
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-app.use(cookieParser())
+app.use(cookieParser(process.env.SECTION_SECRET))
 
 app.use(express.static('public'))
 
@@ -20,7 +24,7 @@ app.get('/',function(req, res) {
     res.render('index');
 });
 
-app.use('/users', userRoute);
+app.use('/users', middleWare.requireAuth, userRoute);
 app.use('/auth', authRoute);
 
 app.listen(port, function() {

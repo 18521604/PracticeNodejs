@@ -1,0 +1,17 @@
+extends ../layout/common 
+
+block content    
+    h1 Users
+    .d-flex.align-items-center.mb-3
+        form.form-inline.ml-auto(action='/products/search', method='GET')
+            input.form-control(type='text', name='q')
+            button.btn.btn-secondary.ml-2 Search
+    .row
+        each product in products
+            .col-lg-3
+                .card
+                    img.card-img-top(src=product.image)
+                    .card-body
+                        h4.card-tittle= product.name
+                        p.card-text= product.description
+                        a.btn.btn-primary See more

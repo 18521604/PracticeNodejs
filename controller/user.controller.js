@@ -27,10 +27,11 @@ module.exports.create = function(req,res){
 
 module.exports.postCreate = function(req, res){
     req.body.id = shortid.generate();
+    req.body.avatar = req.file.path.slice(7);
 
     //user the variable local
-    console.log(res.locals.sayHi);
-    console.log(res.locals.sayBye);
+    // console.log(res.locals.sayHi);
+    // console.log(res.locals.sayBye);
 
     db.get('users').push(req.body).write();
     res.redirect('/users');

@@ -19,8 +19,8 @@ module.exports.postCreate = function (req, res, next) {
     
     
     //variable can use in the function (next) in below
-    res.locals.sayBye = "Done";
-    res.locals.sayHi = "Hello";
+    // res.locals.sayBye = "Done";
+    // res.locals.sayHi = "Hello";
 
     next();
 }

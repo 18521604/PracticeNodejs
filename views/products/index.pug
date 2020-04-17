@@ -1,7 +1,7 @@
 extends ../layout/common 
 
 block content    
-    h1 Users
+    h1 Products
     .d-flex.align-items-center.mb-3
         form.form-inline.ml-auto(action='/products/search', method='GET')
             input.form-control(type='text', name='q')
@@ -14,4 +14,4 @@ block content
                     .card-body
                         h4.card-tittle= product.name
                         p.card-text= product.description
-                        a.btn.btn-primary See more
+                        a.btn.btn-primary(href="/cart/add/" + product.id) Add to cart
